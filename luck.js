@@ -1,6 +1,7 @@
 
 import { translations } from './translations.js';
 import { createInfoIcon } from './icons.js';
+import { startHoldProgress, cancelHoldProgress } from './animations.js';
 import { diceDuelGame } from './dice-duel.js';
 import { penneyRaceGame } from './penney-race.js';
 import { designateChoiceGame } from './designate-choice.js';
@@ -86,15 +87,25 @@ function initializeLuckGame(context) {
     
     // --- Event Listeners ---
     let pressTimer;
-    const handlePressEnd = () => clearTimeout(pressTimer);
-    
+    let pressedCard = null;
+    const handlePressEnd = () => {
+        clearTimeout(pressTimer);
+        if (pressedCard) {
+            cancelHoldProgress(pressedCard);
+            pressedCard = null;
+        }
+    };
+
     const handlePressStart = (e) => {
         const card = e.target.closest('.room-card.dev-locked-card');
         if (card && card.dataset.room) {
             // Prevent default for touch events to stop scrolling, etc.
             if (e.type === 'touchstart') e.preventDefault();
-            
+
+            pressedCard = card;
+            startHoldProgress(card);
             pressTimer = setTimeout(() => {
+                cancelHoldProgress(card);
                 handleRoomSelection(card.dataset.room);
             }, 5000);
         }
