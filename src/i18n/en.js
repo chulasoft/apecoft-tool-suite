@@ -1,6 +1,7 @@
 
 export default {
     // Landing Page
+    landingEyebrow: "DeFi Toolkit",
     landingTitle: "Apecoft Tool Suite",
     landingSubtitle: "A collection of powerful, open-source utilities for decentralized finance enthusiasts",
     launchTool: "Launch Tool",

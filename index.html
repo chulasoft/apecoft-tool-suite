@@ -7,7 +7,7 @@
     <title>Apecoft Tool Suite</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       html {
@@ -796,6 +796,198 @@
           transition-duration: 0.01ms !important;
         }
       }
+
+      /* ============================================================= */
+      /* ===== 2026 Redesign v2 — dark-tech design token layer ======= */
+      /* Appended last so it intentionally overrides the older rules.  */
+      /* ============================================================= */
+      :root {
+        --bg:            #080b14;   /* near-black navy, not pure slate-900 */
+        --surface-1:     #10152300; /* transparent base for cards over orbs */
+        --surface-solid: #101523;
+        --surface-2:     #151c2e;
+        --border:        #222b40;
+        --border-strong: #33405c;
+        --text-1:        #f2f5fb;
+        --text-2:        #9aa7bd;
+        --text-3:        #5f6b82;
+        --accent:        #22d3ee;   /* cyan — the single locked primary accent */
+        --accent-2:      #6366f1;   /* indigo — gradient partner only */
+        --radius-lg:     18px;
+        --radius:        14px;
+        --radius-sm:     10px;
+        --font-display:  'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+        --font-mono:     'JetBrains Mono', ui-monospace, monospace;
+      }
+
+      body {
+        background-color: var(--bg);
+        font-family: var(--font-display);
+        color: var(--text-1);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Numeric / mono affordance for data-heavy inner views */
+      .font-num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+      /* Richer ambient field: keep orbs, add a faint engineering grid */
+      .bg-ambient::before { opacity: 0.20; }
+      .bg-ambient::after  { opacity: 0.18; }
+      .bg-grid {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background-image:
+          linear-gradient(to right, rgba(148,163,184,0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(148,163,184,0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+        mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 40%, transparent 80%);
+        -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 40%, transparent 80%);
+      }
+
+      /* Display headings pick up Space Grotesk with tight tracking */
+      h1, h2, h3, .font-display { font-family: var(--font-display); }
+
+      /* ---- Header / brand chrome ---- */
+      header.site-header {
+        background-color: rgba(8, 11, 20, 0.72);
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(12px) saturate(140%);
+      }
+      .brand-mark {
+        width: 26px; height: 26px; border-radius: 8px;
+        display: grid; place-items: center;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        box-shadow: 0 0 18px -4px var(--accent);
+        color: #04121a; font-weight: 700; font-size: 14px;
+        font-family: var(--font-display);
+      }
+
+      /* ---- Hero ---- */
+      .hero-eyebrow {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        padding: 0.35rem 0.85rem;
+        border: 1px solid var(--border-strong);
+        border-radius: 999px;
+        background: rgba(34, 211, 238, 0.06);
+        color: var(--text-2);
+        font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+        font-weight: 500;
+      }
+      .hero-eyebrow .pulse-dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.6);
+        animation: pulse-dot 2.4s ease-out infinite;
+      }
+      @keyframes pulse-dot {
+        0%   { box-shadow: 0 0 0 0 rgba(34,211,238,0.55); }
+        70%  { box-shadow: 0 0 0 8px rgba(34,211,238,0); }
+        100% { box-shadow: 0 0 0 0 rgba(34,211,238,0); }
+      }
+      .hero-title {
+        font-family: var(--font-display);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 0.98;
+        background: linear-gradient(120deg, #ffffff 0%, #cfe9ff 40%, var(--accent) 70%, var(--accent-2) 100%);
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* ---- Tool cards: refined surface, spotlight, accent edge ---- */
+      #landing-page .tool-card,
+      .room-card.tool-card {
+        background:
+          radial-gradient(120% 100% at 50% 0%, rgba(34,211,238,0.05), transparent 55%),
+          var(--surface-solid);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        transition: transform 0.3s cubic-bezier(0.22,1,0.36,1),
+                    border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      #landing-page .tool-card:not(.dev-locked-card):not(.locked-room-card):hover {
+        transform: translateY(-6px);
+        border-color: var(--border-strong);
+        box-shadow:
+          0 18px 40px -18px rgba(0,0,0,0.8),
+          0 0 0 1px rgba(34,211,238,0.18),
+          inset 0 1px 0 rgba(255,255,255,0.04);
+      }
+      /* Icon chip: unify the corner radius + add depth */
+      #landing-page .tool-card .icon-chip,
+      #landing-page .tool-card [class*="bg-"][class*="/10"] {
+        border-radius: 12px;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+      }
+      /* Launch affordance line gets a subtle track that fills on hover */
+      #landing-page .tool-card .launch-row { position: relative; }
+
+      /* Featured flagship tile spans wider on large screens for rhythm */
+      #landing-page .tool-card.featured {
+        border-color: var(--border-strong);
+        background:
+          radial-gradient(90% 120% at 100% 0%, rgba(99,102,241,0.10), transparent 55%),
+          radial-gradient(90% 120% at 0% 100%, rgba(34,211,238,0.08), transparent 55%),
+          var(--surface-solid);
+      }
+
+      /* ---- Section headers inside inner tool views ---- */
+      .view-title {
+        font-family: var(--font-display);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      /* ---- Global input polish (inner tool forms) ---- */
+      input[type="number"], input[type="text"], input[type="date"], select, textarea {
+        border-radius: var(--radius-sm);
+      }
+      input:focus-visible, select:focus-visible, textarea:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px rgba(34,211,238,0.55);
+      }
+
+      /* ---- Back buttons ---- */
+      [id^="back-to-landing-"], .back-to-rooms-btn {
+        border: 1px solid transparent;
+      }
+      [id^="back-to-landing-"]:hover, .back-to-rooms-btn:hover {
+        border-color: var(--border);
+      }
+
+      /* ---- Footer ---- */
+      footer.site-footer {
+        background-color: rgba(8, 11, 20, 0.72);
+        border-top: 1px solid var(--border);
+        backdrop-filter: blur(12px) saturate(140%);
+      }
+
+      /* ---- Inner-view tables: align to new surfaces + tabular numerals ---- */
+      .clean-table tbody tr { background-color: var(--surface-solid); border-color: var(--border); }
+      .clean-table tbody tr:hover { background-color: var(--surface-2); }
+      .clean-table td, .data-table td { font-variant-numeric: tabular-nums; }
+      .data-table th { background-color: rgba(21,28,46,0.6); }
+
+      /* ---- Language selector chips (rebuilt in JS) inherit the token look ---- */
+      #global-lang-selector-placeholder button { font-family: var(--font-display); }
+
+      /* ---- Scroll-reveal utility (driven by IntersectionObserver in JS) ---- */
+      [data-reveal] {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1),
+                    transform 0.6s cubic-bezier(0.16,1,0.3,1);
+        will-change: opacity, transform;
+      }
+      [data-reveal].revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        [data-reveal] { opacity: 1; transform: none; }
+      }
     </style>
 <script type="importmap">
 {
@@ -810,9 +1002,14 @@
 </head>
 <body class="bg-slate-900 text-white pt-12 pb-16">
     <div class="bg-ambient" aria-hidden="true"></div>
-    <header class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-sm border-b border-slate-700">
+    <div class="bg-grid" aria-hidden="true"></div>
+    <header class="site-header fixed top-0 left-0 right-0 z-50 h-12">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-12">
-            <p class="text-xs text-slate-500 hidden sm:block" data-i18n-key="footerDisclaimer"></p>
+            <div class="flex items-center gap-x-2.5">
+                <span class="brand-mark" aria-hidden="true">A</span>
+                <span class="hidden sm:block text-sm font-semibold tracking-tight text-slate-200 font-display">Apecoft</span>
+                <span class="text-xs text-slate-600 hidden md:block" data-i18n-key="footerDisclaimer"></span>
+            </div>
             <div class="flex items-center gap-x-4">
                 <div id="global-lang-selector-placeholder"></div>
             </div>
@@ -823,14 +1020,18 @@
         <main class="relative">
             <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Landing Page View -->
-                <div id="landing-page" class="min-h-[calc(100vh-7rem)] flex flex-col justify-center items-center text-center">
-                  <header class="mb-12">
-                      <h1 data-i18n-key="landingTitle" class="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-500">Apecoft Tool Suite</h1>
-                      <p data-i18n-key="landingSubtitle" class="mt-4 text-lg text-slate-300 max-w-2xl mx-auto">A collection of powerful, open-source utilities for decentralized finance enthusiasts</p>
+                <div id="landing-page" class="min-h-[calc(100vh-7rem)] flex flex-col justify-center items-center text-center pt-16 pb-10">
+                  <header class="mb-14 flex flex-col items-center">
+                      <span class="hero-eyebrow mb-6">
+                          <span class="pulse-dot"></span>
+                          <span data-i18n-key="landingEyebrow">DeFi Toolkit</span>
+                      </span>
+                      <h1 data-i18n-key="landingTitle" class="hero-title text-5xl sm:text-6xl md:text-7xl max-w-4xl">Apecoft Tool Suite</h1>
+                      <p data-i18n-key="landingSubtitle" class="mt-5 text-lg text-slate-300 max-w-xl mx-auto leading-relaxed">A collection of powerful, open-source utilities for decentralized finance enthusiasts</p>
                   </header>
-                  <main class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <main class="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                       <!-- LP Calculator Card -->
-                      <div id="launch-calculator-btn" class="tool-card border border-slate-700 rounded-2xl p-5 text-left cursor-pointer flex flex-col">
+                      <div id="launch-calculator-btn" class="tool-card featured border border-slate-700 rounded-2xl p-5 text-left cursor-pointer flex flex-col">
                           <div class="flex-grow">
                               <div class="flex items-start gap-4">
                                   <div class="p-2.5 bg-cyan-500/10 rounded-xl">
@@ -1398,7 +1599,7 @@
         </main>
     </div>
     
-    <footer class="fixed bottom-0 left-0 right-0 z-40 bg-slate-900/60 backdrop-blur-sm border-t border-slate-700 py-3 text-center text-slate-400 text-sm">
+    <footer class="site-footer fixed bottom-0 left-0 right-0 z-40 py-3 text-center text-slate-400 text-sm">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center items-center gap-x-6 gap-y-2 flex-wrap">
             <a href="https://x.com/softdigiworld" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors" data-i18n-key="footerDev"></a>
             <span class="text-slate-600 hidden sm:inline">|</span>
