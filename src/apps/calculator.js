@@ -1,9 +1,9 @@
 
-import { translations } from './translations.js';
-import { fetchMarketData } from './cryptoService.js';
-import { CoinSelector } from './CoinSelector.js';
-import { createSwapIcon, createCheckIcon, createWarningIcon, createInfoIcon } from './icons.js';
-import { createPriceRangeGraph } from './PriceRangeGraph.js';
+import { translations } from '../i18n/translations.js';
+import { fetchMarketData } from '../services/cryptoService.js';
+import { CoinSelector } from '../components/CoinSelector.js';
+import { createSwapIcon, createCheckIcon, createWarningIcon, createInfoIcon } from '../components/icons.js';
+import { createPriceRangeGraph } from '../components/PriceRangeGraph.js';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 

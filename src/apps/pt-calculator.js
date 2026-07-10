@@ -1,5 +1,5 @@
-import { translations } from './translations.js';
-import { createInfoIcon } from './icons.js';
+import { translations } from '../i18n/translations.js';
+import { createInfoIcon } from '../components/icons.js';
 
 const getInitialState = () => ({
     initialized: false,

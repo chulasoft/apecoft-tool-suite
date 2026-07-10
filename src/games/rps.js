@@ -1,6 +1,6 @@
 
-import { translations } from './translations.js';
-import { createInfoIcon, createHandRockIcon, createHandPaperIcon, createHandScissorsIcon, createCheckIcon, createTwitterIcon } from './icons.js';
+import { translations } from '../i18n/translations.js';
+import { createInfoIcon, createHandRockIcon, createHandPaperIcon, createHandScissorsIcon, createCheckIcon, createTwitterIcon } from '../components/icons.js';
 
 let state, elements, utils, luckElements;
 const CHOICES = ['rock', 'paper', 'scissors'];

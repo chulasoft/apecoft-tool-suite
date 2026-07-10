@@ -1,4 +1,5 @@
-import { translations } from './translations.js';
+
+import { translations } from '../i18n/translations.js';
 
 const getInitialState = () => ({
     initialized: false,
@@ -11,26 +12,26 @@ function initialize(context) {
     elements = context.elements;
     utils = context.utils;
 
-    if (state.airdrop.initialized) return;
+    if (state.repayOrInvest.initialized) return;
 
     render();
-    state.airdrop.initialized = true;
+    state.repayOrInvest.initialized = true;
 }
 
 function render() {
     const t = translations[state.lang];
-    const mainContainer = document.getElementById('airdrop-main');
+    const mainContainer = document.getElementById('repay-or-invest-main');
     if (mainContainer) {
         mainContainer.innerHTML = `
             <div class="text-center p-8 bg-slate-800/60 border border-slate-700 rounded-xl">
                  <h3 class="text-2xl font-bold text-slate-400" data-i18n-key="comingSoonTitle">${t.comingSoonTitle}</h3>
-                 <p class="mt-2 text-slate-500" data-i18n-key="airdropToolTitle">${t.airdropToolTitle}</p>
+                 <p class="mt-2 text-slate-500" data-i18n-key="repayOrInvestToolTitle">${t.repayOrInvestToolTitle}</p>
             </div>
         `;
     }
 }
 
-export const airdropApp = {
+export const repayOrInvestApp = {
     initialState: getInitialState(),
     initialize: initialize,
     render: render,

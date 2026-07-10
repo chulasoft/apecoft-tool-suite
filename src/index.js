@@ -1,20 +1,20 @@
 
 
-import { translations } from './translations.js';
-import { calculatorApp } from './calculator.js';
-import { yieldApp } from './yield.js';
-import { luckApp } from './luck.js';
-import { comparatorApp } from './comparator.js';
-import { ptCalculatorApp } from './pt-calculator.js';
-import { moonSheetApp } from './moon-sheet.js';
-import { airdropApp } from './airdrop.js';
-import { yieldFinderApp } from './yield-finder.js';
-import { makeItOrRektItApp } from './make-it-or-rekt-it.js';
-import { repayOrInvestApp } from './repay-or-invest.js';
+import { translations } from './i18n/translations.js';
+import { calculatorApp } from './apps/calculator.js';
+import { yieldApp } from './apps/yield.js';
+import { luckApp } from './games/luck.js';
+import { comparatorApp } from './apps/comparator.js';
+import { ptCalculatorApp } from './apps/pt-calculator.js';
+import { moonSheetApp } from './apps/moon-sheet.js';
+import { airdropApp } from './apps/airdrop.js';
+import { yieldFinderApp } from './apps/yield-finder.js';
+import { makeItOrRektItApp } from './apps/make-it-or-rekt-it.js';
+import { repayOrInvestApp } from './apps/repay-or-invest.js';
 import QRCode from 'qrcode';
 import { GoogleGenAI } from '@google/genai';
-import { fetchTopTokens } from './cryptoService.js';
-import { CoinSelector } from './CoinSelector.js';
+import { fetchTopTokens } from './services/cryptoService.js';
+import { CoinSelector } from './components/CoinSelector.js';
 import { playLandingIntro, transitionView, pulseInput, setupCardSpotlight, startHoldProgress, cancelHoldProgress } from './animations.js';
 
 

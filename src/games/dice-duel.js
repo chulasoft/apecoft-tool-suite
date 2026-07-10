@@ -1,6 +1,6 @@
 
-import { translations } from './translations.js';
-import { createInfoIcon, createTwitterIcon } from './icons.js';
+import { translations } from '../i18n/translations.js';
+import { createInfoIcon, createTwitterIcon } from '../components/icons.js';
 
 // --- CONSTANTS ---
 const INITIAL_CAPITAL = 1000000;
