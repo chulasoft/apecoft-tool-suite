@@ -12,7 +12,6 @@ import { yieldFinderApp } from './apps/yield-finder.js';
 import { makeItOrRektItApp } from './apps/make-it-or-rekt-it.js';
 import { repayOrInvestApp } from './apps/repay-or-invest.js';
 import QRCode from 'qrcode';
-import { GoogleGenAI } from '@google/genai';
 import { fetchTopTokens } from './services/cryptoService.js';
 import { CoinSelector } from './components/CoinSelector.js';
 import { playLandingIntro, transitionView, pulseInput, setupCardSpotlight, startHoldProgress, cancelHoldProgress } from './animations.js';
@@ -39,18 +38,6 @@ const state = {
   makeItOrRektIt: makeItOrRektItApp.initialState,
   repayOrInvest: repayOrInvestApp.initialState,
 };
-
-let ai;
-try {
-  // `process` does not exist in the browser without a bundler; guard so the
-  // app never depends on a ReferenceError being caught to keep running.
-  const apiKey = (typeof process !== 'undefined' && process.env) ? process.env.API_KEY : undefined;
-  ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
-} catch (e) {
-  console.error("Failed to initialize GoogleGenAI. API_KEY might be missing.", e);
-  ai = null;
-}
-
 
 // --- DOM ELEMENT REFERENCES (SHARED) ---
 const elements = {
@@ -249,7 +236,6 @@ function setView(viewName) {
             state,
             elements,
             utils: { formatValue, formatCurrency, formatNumber, formatPercent, formatBigNumber, showToast, translateUI, showConfirmationModal, openGuideModal },
-            ai
         };
 
         if (viewName === 'calculator' && !state.calculator.initialized) {

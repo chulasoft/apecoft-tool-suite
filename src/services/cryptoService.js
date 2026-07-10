@@ -1,20 +1,21 @@
 
-const API_BASE_URL = 'https://api.coingecko.com/api/v3';
+// Routed through our own /api/coingecko serverless function (see
+// api/coingecko/[...path].js) rather than a public CORS proxy, so pricing
+// data doesn't depend on a third party's uptime.
+const API_BASE_URL = '/api/coingecko';
 
 // Helper function to handle fetch requests to CoinGecko
 const fetchFromApi = async (endpoint) => {
     const targetUrl = `${API_BASE_URL}${endpoint}`;
-    // Cycling through public CORS proxies to find a reliable one.
-    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
     try {
-        const response = await fetch(proxyUrl);
+        const response = await fetch(targetUrl);
         if (!response.ok) {
             const errorText = await response.text();
-            throw new Error(`API call failed for ${targetUrl} via proxy: ${response.status}. Response: ${errorText}`);
+            throw new Error(`API call failed for ${targetUrl}: ${response.status}. Response: ${errorText}`);
         }
         return await response.json();
     } catch (error) {
-        console.error(`Failed to fetch from ${targetUrl} via proxy:`, error);
+        console.error(`Failed to fetch from ${targetUrl}:`, error);
         throw error;
     }
 };
