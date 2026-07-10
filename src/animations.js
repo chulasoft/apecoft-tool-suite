@@ -14,7 +14,9 @@ const prefersReducedMotion = () =>
 
 const canAnimate = () => anime && !prefersReducedMotion();
 
-// --- Landing page intro: hero fades up, tool cards stagger in ---
+// --- Landing page intro: hero reveals as a timeline, cards stagger in a grid wave ---
+// Motivated: the sequence establishes hierarchy (eyebrow -> title -> subtext ->
+// tools) so the eye lands on the value prop before the tool grid.
 export async function playLandingIntro() {
     await animeReady;
     if (!canAnimate()) return;
@@ -25,22 +27,54 @@ export async function playLandingIntro() {
     if (hero.length) {
         anime.animate(hero, {
             opacity: [0, 1],
-            translateY: [18, 0],
-            duration: 550,
-            delay: anime.stagger(90),
-            ease: 'outCubic',
+            translateY: [22, 0],
+            filter: ['blur(6px)', 'blur(0px)'],
+            duration: 700,
+            delay: anime.stagger(110),
+            ease: 'out(3)',
         });
     }
     if (cards.length) {
+        // Grid-aware wave: stagger from the top-left so the reveal reads as a
+        // diagonal sweep across the launcher rather than a flat fade.
         anime.animate(cards, {
             opacity: [0, 1],
-            translateY: [26, 0],
-            scale: [0.97, 1],
-            duration: 500,
-            delay: anime.stagger(45, { start: 120 }),
-            ease: 'outCubic',
+            translateY: [30, 0],
+            scale: [0.96, 1],
+            duration: 620,
+            delay: anime.stagger(38, { start: 260, grid: [3, 4], from: 'first' }),
+            ease: 'out(3)',
         });
     }
+}
+
+// --- Scroll-reveal: animate [data-reveal] elements as they enter the viewport.
+// Used inside tool views so long inner sections arrive with intent instead of
+// all at once. Idempotent per element (revealed once, then unobserved). ---
+let revealObserver = null;
+function ensureRevealObserver() {
+    if (revealObserver || typeof IntersectionObserver === 'undefined') return revealObserver;
+    revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    return revealObserver;
+}
+
+export function revealOnScroll(containerEl) {
+    if (!containerEl) return;
+    const targets = containerEl.querySelectorAll('[data-reveal]:not(.revealed)');
+    if (!targets.length) return;
+
+    if (prefersReducedMotion() || !ensureRevealObserver()) {
+        targets.forEach((el) => el.classList.add('revealed'));
+        return;
+    }
+    targets.forEach((el) => revealObserver.observe(el));
 }
 
 // --- View transitions: fade/slide the root between views ---
