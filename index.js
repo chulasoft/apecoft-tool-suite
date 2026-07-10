@@ -15,6 +15,7 @@ import QRCode from 'qrcode';
 import { GoogleGenAI } from '@google/genai';
 import { fetchTopTokens } from './cryptoService.js';
 import { CoinSelector } from './CoinSelector.js';
+import { playLandingIntro, transitionView, pulseInput, setupCardSpotlight, startHoldProgress, cancelHoldProgress } from './animations.js';
 
 
 const SUI_WALLET_ADDRESS = '0x6c1d3e6dce6a63d6423c8417e6ab90b40500a23f71f11f9184fb5cacf59dd677';
@@ -41,7 +42,10 @@ const state = {
 
 let ai;
 try {
-  ai = new GoogleGenAI({apiKey: process.env.API_KEY});
+  // `process` does not exist in the browser without a bundler; guard so the
+  // app never depends on a ReferenceError being caught to keep running.
+  const apiKey = (typeof process !== 'undefined' && process.env) ? process.env.API_KEY : undefined;
+  ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 } catch (e) {
   console.error("Failed to initialize GoogleGenAI. API_KEY might be missing.", e);
   ai = null;
@@ -225,10 +229,8 @@ function translateUI(lang) {
 // --- VIEW MANAGEMENT ---
 function setView(viewName) {
     state.currentView = viewName;
-    
-    elements.root.style.opacity = 0;
 
-    setTimeout(() => {
+    transitionView(elements.root, () => {
         elements.landingPage.style.display = viewName === 'landing' ? 'flex' : 'none';
         elements.calculatorApp.style.display = viewName === 'calculator' ? 'block' : 'none';
         elements.yieldDashboard.style.display = viewName === 'yield-dashboard' ? 'block' : 'none';
@@ -281,9 +283,12 @@ function setView(viewName) {
         }
 
         translateUI(state.lang); // Ensure UI is translated for the new view
-        elements.root.style.opacity = 1;
         window.scrollTo(0, 0);
-    }, 200);
+
+        if (viewName === 'landing') {
+            playLandingIntro();
+        }
+    });
 }
 
 // --- SHARED RENDER & EVENT HANDLERS ---
@@ -347,6 +352,7 @@ function setupCustomNumberInputs() {
         if (newValue < min) newValue = min;
         input.value = newValue;
         input.dispatchEvent(new Event('input', { bubbles: true }));
+        pulseInput(input);
     });
 }
 
@@ -392,6 +398,7 @@ async function initialize() {
     
     renderLangSelector();
     setupCustomNumberInputs();
+    setupCardSpotlight(elements.landingPage);
     generateQRCode();
     
     // Standard click listeners
@@ -404,23 +411,31 @@ async function initialize() {
 
     // --- Dev Lock Long-Press Logic ---
     let pressTimer;
+    let pressedCard = null;
 
-    const handlePressStart = (view) => {
+    const handlePressStart = (element, view) => {
+        pressedCard = element;
+        startHoldProgress(element);
         pressTimer = setTimeout(() => {
+            cancelHoldProgress(element);
             setView(view);
         }, 5000);
     };
 
     const handlePressEnd = () => {
         clearTimeout(pressTimer);
+        if (pressedCard) {
+            cancelHoldProgress(pressedCard);
+            pressedCard = null;
+        }
     };
 
     const setupLongPress = (element, viewName) => {
         if (!element) return;
-        element.addEventListener('mousedown', () => handlePressStart(viewName));
+        element.addEventListener('mousedown', () => handlePressStart(element, viewName));
         element.addEventListener('mouseup', handlePressEnd);
         element.addEventListener('mouseleave', handlePressEnd);
-        element.addEventListener('touchstart', (e) => { e.preventDefault(); handlePressStart(viewName); }, { passive: false });
+        element.addEventListener('touchstart', (e) => { e.preventDefault(); handlePressStart(element, viewName); }, { passive: false });
         element.addEventListener('touchend', handlePressEnd);
     };
 
@@ -455,4 +470,11 @@ async function initialize() {
     await loadGlobalCoinList();
 }
 
-document.addEventListener('DOMContentLoaded', initialize);
+// The document may already be interactive/complete by the time this module
+// evaluates (module graphs load asynchronously), so don't rely solely on
+// DOMContentLoaded or initialization silently never runs.
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialize);
+} else {
+    initialize();
+}

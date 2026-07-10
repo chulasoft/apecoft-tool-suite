@@ -152,18 +152,23 @@
       .data-table {
         border-collapse: collapse;
       }
+      /* NOTE: @apply is not processed inside a plain <style> tag by the
+         Tailwind Play CDN, so these rules are written in plain CSS. */
       .data-table th {
-        @apply px-4 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider bg-slate-700/50 text-center;
+        padding: 0.75rem 1rem; font-size: 0.75rem; line-height: 1rem; font-weight: 500;
+        color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.05em;
+        background-color: rgb(51 65 85 / 0.5); text-align: center;
       }
       .data-table td {
-        @apply px-4 py-2 whitespace-nowrap text-sm text-center align-middle;
+        padding: 0.5rem 1rem; white-space: nowrap; font-size: 0.875rem;
+        line-height: 1.25rem; text-align: center; vertical-align: middle;
       }
       .data-table th,
       .data-table td {
         border: 1px solid #334155; /* slate-700 */
       }
       .data-table tbody tr:not(.selected-row):hover {
-        @apply bg-slate-800;
+        background-color: #1e293b;
       }
       .data-table tbody tr.clickable-row {
         cursor: pointer;
@@ -185,7 +190,7 @@
       
       /* Yield Dashboard styles */
       .pagination-btn:disabled {
-        @apply opacity-50 cursor-not-allowed;
+        opacity: 0.5; cursor: not-allowed;
       }
       .dropdown-menu {
         transition: opacity 0.2s, transform 0.2s;
@@ -234,13 +239,16 @@
         border-spacing: 0 0.5rem;
       }
       .clean-table th {
-          @apply px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider text-center cursor-pointer select-none transition-colors;
+          padding: 0.75rem 1rem; font-size: 0.75rem; line-height: 1rem; font-weight: 500;
+          color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; text-align: center;
+          cursor: pointer; user-select: none; transition: color 0.15s ease-in-out;
       }
       .clean-table th:hover {
-          @apply text-white;
+          color: #ffffff;
       }
       .clean-table td {
-           @apply px-4 py-4 whitespace-nowrap text-sm text-center align-middle;
+           padding: 1rem; white-space: nowrap; font-size: 0.875rem;
+           line-height: 1.25rem; text-align: center; vertical-align: middle;
       }
       .clean-table tbody tr {
            border-radius: 0.5rem; /* rounded-lg */
@@ -340,10 +348,11 @@
         flex-direction: column;
       }
       .die-card {
-        @apply border-2 border-slate-700 rounded-lg cursor-pointer transition-all duration-200;
+        border: 2px solid #334155; border-radius: 0.5rem;
+        cursor: pointer; transition: all 0.2s ease-in-out;
       }
       .die-card:not(.selected):hover {
-        @apply border-slate-500 transform-gpu translate-y-[-2px];
+        border-color: #64748b; transform: translateY(-2px);
       }
       .die-card.selected {
         border-color: transparent;
@@ -407,7 +416,11 @@
       }
       .rules-list .rule-text { flex: 1; }
       .rules-list .rule-text strong { color: #f59e0b; /* amber-500 */ }
-      .rules-list .rule-text code { @apply bg-slate-700 font-mono text-sm text-cyan-400 rounded-md py-0.5 px-1.5; }
+      .rules-list .rule-text code {
+        background-color: #334155; color: #22d3ee; font-size: 0.875rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        border-radius: 0.375rem; padding: 0.125rem 0.375rem;
+      }
       
       .bvr-spinner {
         width: 1.5rem; height: 1.5rem;
@@ -632,6 +645,157 @@
         from { opacity: 0; transform: scale(0.9); }
         to { opacity: 1; transform: scale(1); }
       }
+
+      /* ============================================= */
+      /* ===== UI/UX Modernization (2026 refresh) ==== */
+      /* ============================================= */
+
+      /* Ambient animated background orbs */
+      .bg-ambient {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .bg-ambient::before,
+      .bg-ambient::after {
+        content: '';
+        position: absolute;
+        width: 55vmax;
+        height: 55vmax;
+        border-radius: 50%;
+        filter: blur(90px);
+        opacity: 0.16;
+        will-change: transform;
+      }
+      .bg-ambient::before {
+        background: radial-gradient(circle, #0ea5e9, transparent 65%);
+        top: -20vmax;
+        left: -15vmax;
+        animation: orb-drift-a 26s ease-in-out infinite alternate;
+      }
+      .bg-ambient::after {
+        background: radial-gradient(circle, #6366f1, transparent 65%);
+        bottom: -22vmax;
+        right: -12vmax;
+        animation: orb-drift-b 32s ease-in-out infinite alternate;
+      }
+      @keyframes orb-drift-a {
+        from { transform: translate(0, 0) scale(1); }
+        to   { transform: translate(10vmax, 6vmax) scale(1.15); }
+      }
+      @keyframes orb-drift-b {
+        from { transform: translate(0, 0) scale(1.1); }
+        to   { transform: translate(-8vmax, -7vmax) scale(0.95); }
+      }
+
+      /* Smoother, springier interactions */
+      button, a, .tool-card, .interactive-card {
+        transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .tool-card {
+        position: relative;
+        overflow: hidden;
+      }
+      /* Mouse-tracking spotlight sheen on landing cards */
+      #landing-page .tool-card:not(.dev-locked-card):not(.locked-room-card)::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%),
+                    rgba(56, 189, 248, 0.14), transparent 65%);
+        opacity: 0;
+        transition: opacity 0.35s ease;
+      }
+      #landing-page .tool-card:not(.dev-locked-card):not(.locked-room-card):hover::before {
+        opacity: 1;
+      }
+
+      /* Consistent, accessible focus states */
+      button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
+        outline: 2px solid #22d3ee;
+        outline-offset: 2px;
+        border-radius: 0.375rem;
+      }
+      /* Tactile press feedback — uses the standalone `scale` property so it
+         never clobbers Tailwind translate/transform utilities */
+      button:active:not(:disabled), .tool-card:active {
+        scale: 0.98;
+      }
+
+      /* Toast: springier entrance */
+      .toast {
+        transform: translateY(24px) scale(0.96);
+        transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .toast.show {
+        transform: translateY(0) scale(1);
+      }
+
+      /* Modal: gentle pop */
+      .modal-content {
+        transform: scale(0.95) translateY(12px);
+        transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .modal-overlay.open .modal-content {
+        transform: scale(1) translateY(0);
+      }
+
+      /* Number input value pulse on step */
+      @keyframes input-pulse {
+        0%   { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.45); }
+        100% { box-shadow: 0 0 0 8px rgba(34, 211, 238, 0); }
+      }
+      .input-pulse {
+        animation: input-pulse 0.4s ease-out;
+      }
+
+      /* Hold-to-unlock progress ring (dev-locked cards) */
+      .hold-ring {
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(15, 23, 42, 0.55);
+        backdrop-filter: blur(2px);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+      .hold-ring.active { opacity: 1; }
+      .hold-ring circle.progress {
+        fill: none;
+        stroke: #22d3ee;
+        stroke-width: 4;
+        stroke-linecap: round;
+        stroke-dasharray: 138.2;
+        stroke-dashoffset: 138.2;
+        transform: rotate(-90deg);
+        transform-origin: center;
+        transition: stroke-dashoffset 5s linear;
+        filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.7));
+      }
+      .hold-ring.active circle.progress { stroke-dashoffset: 0; }
+      .hold-ring circle.track {
+        fill: none;
+        stroke: rgba(148, 163, 184, 0.3);
+        stroke-width: 4;
+      }
+
+      /* Respect users who prefer reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
     </style>
 <script type="importmap">
 {
@@ -639,13 +803,14 @@
     "@google/genai": "https://esm.sh/@google/genai",
     "qrcode": "https://esm.sh/qrcode",
     "jspdf": "https://esm.sh/jspdf@2.5.1",
-    "jspdf-autotable": "https://esm.sh/jspdf-autotable@3.8.2"
+    "jspdf-autotable": "https://esm.sh/jspdf-autotable@3.8.2",
+    "animejs": "./vendor/anime.esm.min.js"
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
 <body class="bg-slate-900 text-white pt-12 pb-16">
+    <div class="bg-ambient" aria-hidden="true"></div>
     <header class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-sm border-b border-slate-700">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-12">
             <p class="text-xs text-slate-500 hidden sm:block" data-i18n-key="footerDisclaimer"></p>
@@ -1309,11 +1474,5 @@
     </div>
     <div id="toast-container"></div>
     <script type="module" src="./index.js"></script>
-    <script type="module" src="./moon-sheet.js"></script>
-    <script type="module" src="./airdrop.js"></script>
-    <script type="module" src="./yield-finder.js"></script>
-    <script type="module" src="./make-it-or-rekt-it.js"></script>
-    <script type="module" src="./repay-or-invest.js"></script>
-<script type="module" src="/index.tsx"></script>
 </body>
 </html>

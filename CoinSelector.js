@@ -10,7 +10,9 @@ export const CoinSelector = (() => {
 
   function renderList() {
     const listElement = modalElement.querySelector('.coin-list');
-    const t = translations[localStorage.getItem('appLanguage') || 'en'];
+    // Fall back to English: a stale saved language (e.g. 'th') has no entry
+    // in `translations` and would crash rendering otherwise.
+    const t = translations[localStorage.getItem('appLanguage') || 'en'] || translations.en;
 
     const filteredCoins = searchTerm
       ? allCoins.filter(coin =>
@@ -43,7 +45,7 @@ export const CoinSelector = (() => {
   
   function init(container) {
     const lang = localStorage.getItem('appLanguage') || 'en';
-    const t = translations[lang];
+    const t = translations[lang] || translations.en;
 
     modalElement = document.createElement('div');
     modalElement.className = 'modal-overlay';
