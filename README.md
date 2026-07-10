@@ -46,7 +46,7 @@ These tools are currently under development and can be accessed via a long-press
     *   [CoinGecko API](https://www.coingecko.com/en/api) for cryptocurrency price and market data.
     *   [DefiLlama API](https://defillama.com/docs/api) for yield and pool data.
 *   **Libraries**:
-    *   `@google/genai` for future AI-powered features.
+    *   `anime.js` for UI animation.
     *   `jsPDF` & `jspdf-autotable` for PDF exporting.
     *   `qrcode` for generating QR codes.
 
