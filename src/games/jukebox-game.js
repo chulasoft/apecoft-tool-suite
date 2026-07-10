@@ -1,5 +1,5 @@
 
-import { translations } from './translations.js';
+import { translations } from '../i18n/translations.js';
 
 const getInitialState = () => ({
     initialized: false,
@@ -12,26 +12,26 @@ function initialize(context) {
     elements = context.elements;
     utils = context.utils;
 
-    if (state.repayOrInvest.initialized) return;
+    if (state.jukeboxGame.initialized) return;
 
     render();
-    state.repayOrInvest.initialized = true;
+    state.jukeboxGame.initialized = true;
 }
 
 function render() {
     const t = translations[state.lang];
-    const mainContainer = document.getElementById('repay-or-invest-main');
+    const mainContainer = document.getElementById('jukebox-game-main');
     if (mainContainer) {
         mainContainer.innerHTML = `
             <div class="text-center p-8 bg-slate-800/60 border border-slate-700 rounded-xl">
                  <h3 class="text-2xl font-bold text-slate-400" data-i18n-key="comingSoonTitle">${t.comingSoonTitle}</h3>
-                 <p class="mt-2 text-slate-500" data-i18n-key="repayOrInvestToolTitle">${t.repayOrInvestToolTitle}</p>
+                 <p class="mt-2 text-slate-500" data-i18n-key="jukeboxGameTitle">${t.jukeboxGameTitle}</p>
             </div>
         `;
     }
 }
 
-export const repayOrInvestApp = {
+export const jukeboxGameApp = {
     initialState: getInitialState(),
     initialize: initialize,
     render: render,

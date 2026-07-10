@@ -1,7 +1,7 @@
 
-import { translations } from './translations.js';
-import { createInfoIcon } from './icons.js';
-import { startHoldProgress, cancelHoldProgress } from './animations.js';
+import { translations } from '../i18n/translations.js';
+import { createInfoIcon } from '../components/icons.js';
+import { startHoldProgress, cancelHoldProgress } from '../animations.js';
 import { diceDuelGame } from './dice-duel.js';
 import { penneyRaceGame } from './penney-race.js';
 import { designateChoiceGame } from './designate-choice.js';

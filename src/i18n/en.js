@@ -615,7 +615,6 @@ export default {
     // Shared Components
     footerDev: "Made by <span class='text-cyan-400 font-semibold'>Apecoft</span>",
     footerData: "Price from <span class='text-green-400 font-semibold'>Coingecko</span>",
-    footerWalrus: "Deployed on <span class='text-cyan-400 font-semibold'>Walrus</span>",
     footerDisclaimer: "For Educational Purposes Only",
     selectCoinPlaceholder: "Select a token...",
     searchCoinPlaceholder: "Search for a token...",

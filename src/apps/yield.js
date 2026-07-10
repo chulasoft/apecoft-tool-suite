@@ -1,8 +1,8 @@
 
-import { translations } from './translations.js';
+import { translations } from '../i18n/translations.js';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { 
+import {
     createInfoIcon, 
     createPdfIcon,
     createEditIcon,
@@ -13,7 +13,7 @@ import {
     createChevronLeftIcon,
     createChevronRightIcon,
     createWarningIcon
-} from './icons.js';
+} from '../components/icons.js';
 
 
 // --- CONSTANTS & STATE ---

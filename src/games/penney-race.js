@@ -1,7 +1,7 @@
 
 
-import { translations } from './translations.js';
-import { createInfoIcon, createTwitterIcon } from './icons.js';
+import { translations } from '../i18n/translations.js';
+import { createInfoIcon, createTwitterIcon } from '../components/icons.js';
 
 let state, elements, utils, luckElements;
 let intervalId = null;

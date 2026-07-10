@@ -1,6 +1,6 @@
 
 import { createSearchIcon, createCloseIcon } from './icons.js';
-import { translations } from './translations.js';
+import { translations } from '../i18n/translations.js';
 
 export const CoinSelector = (() => {
   let modalElement;

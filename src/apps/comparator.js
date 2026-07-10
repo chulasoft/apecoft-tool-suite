@@ -1,8 +1,8 @@
 
-import { translations } from './translations.js';
-import { fetchCoinDetails } from './cryptoService.js';
-import { CoinSelector } from './CoinSelector.js';
-import { createSwapIcon } from './icons.js';
+import { translations } from '../i18n/translations.js';
+import { fetchCoinDetails } from '../services/cryptoService.js';
+import { CoinSelector } from '../components/CoinSelector.js';
+import { createSwapIcon } from '../components/icons.js';
 
 // --- CONSTANTS & STATE ---
 const COMPARATOR_STATE_KEY = 'comparatorState';

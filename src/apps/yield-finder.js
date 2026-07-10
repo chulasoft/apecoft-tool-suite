@@ -1,6 +1,6 @@
 
-import { translations } from './translations.js';
-import { fetchTopTokens } from './cryptoService.js';
+import { translations } from '../i18n/translations.js';
+import { fetchTopTokens } from '../services/cryptoService.js';
 
 // --- STATE & CONSTANTS ---
 const DEFILAMA_API_URL = 'https://yields.llama.fi/pools';

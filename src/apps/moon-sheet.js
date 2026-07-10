@@ -1,6 +1,6 @@
-import { translations } from './translations.js';
-import { fetchTopTokens, fetchCoinDetails } from './cryptoService.js';
-import { CoinSelector } from './CoinSelector.js';
+import { translations } from '../i18n/translations.js';
+import { fetchTopTokens, fetchCoinDetails } from '../services/cryptoService.js';
+import { CoinSelector } from '../components/CoinSelector.js';
 
 const MOON_SHEET_STATE_KEY = 'moonSheetState';
 

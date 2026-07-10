@@ -1,5 +1,5 @@
 
-import { translations } from './translations.js';
+import { translations } from '../i18n/translations.js';
 
 const getInitialState = () => ({
     initialized: false,
