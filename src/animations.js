@@ -48,6 +48,23 @@ export async function playLandingIntro() {
     }
 }
 
+// --- Tool-view intro: stagger the .interactive-card panels of a tool view on
+// enter. Motivated by hierarchy: the input steps arrive in reading order so the
+// eye follows the flow. Runs once per view entry; safe no-op without anime. ---
+export async function playToolIntro(viewEl) {
+    await animeReady;
+    if (!canAnimate() || !viewEl) return;
+    const cards = viewEl.querySelectorAll('.interactive-card');
+    if (!cards.length) return;
+    anime.animate(cards, {
+        opacity: [0, 1],
+        translateY: [24, 0],
+        duration: 560,
+        delay: anime.stagger(70, { start: 100 }),
+        ease: 'out(3)',
+    });
+}
+
 // --- Scroll-reveal: animate [data-reveal] elements as they enter the viewport.
 // Used inside tool views so long inner sections arrive with intent instead of
 // all at once. Idempotent per element (revealed once, then unobserved). ---

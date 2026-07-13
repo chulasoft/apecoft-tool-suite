@@ -14,7 +14,7 @@ import { repayOrInvestApp } from './apps/repay-or-invest.js';
 import QRCode from 'qrcode';
 import { fetchTopTokens } from './services/cryptoService.js';
 import { CoinSelector } from './components/CoinSelector.js';
-import { playLandingIntro, transitionView, pulseInput, setupCardSpotlight, startHoldProgress, cancelHoldProgress, revealOnScroll } from './animations.js';
+import { playLandingIntro, transitionView, pulseInput, setupCardSpotlight, startHoldProgress, cancelHoldProgress, revealOnScroll, playToolIntro } from './animations.js';
 
 
 const SUI_WALLET_ADDRESS = '0x6c1d3e6dce6a63d6423c8417e6ab90b40500a23f71f11f9184fb5cacf59dd677';
@@ -277,6 +277,10 @@ function setView(viewName) {
             // Reveal any [data-reveal] sections in the newly shown tool view.
             const activeView = elements.root.querySelector('[id$="-app"]:not([style*="display: none"]), #yield-dashboard:not([style*="display: none"])');
             revealOnScroll(activeView || elements.root);
+            // Stagger the input/result panels of card-based tool views on enter.
+            if (viewName === 'calculator') {
+                playToolIntro(elements.calculatorApp);
+            }
         }
     });
 }

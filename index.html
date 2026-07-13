@@ -973,6 +973,98 @@
       /* ---- Language selector chips (rebuilt in JS) inherit the token look ---- */
       #global-lang-selector-placeholder button { font-family: var(--font-display); }
 
+      /* ============================================================= */
+      /* ===== LP Calculator — focused inner-view redesign =========== */
+      /* Scoped to #calculator-app; ID specificity overrides the inline */
+      /* Tailwind utilities on the JS-rendered + static markup.        */
+      /* ============================================================= */
+      #calculator-app .interactive-card {
+        position: relative;
+        background:
+          linear-gradient(180deg, rgba(34,211,238,0.035), transparent 42%),
+          var(--surface-solid);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease,
+                    transform 0.3s cubic-bezier(0.22,1,0.36,1);
+      }
+      #calculator-app .interactive-card:hover {
+        border-color: var(--border-strong);
+        box-shadow: 0 16px 36px -22px rgba(0,0,0,0.85);
+      }
+
+      /* Step-number cards get a gradient accent bar on their title */
+      #calculator-app h3[data-i18n-key^="card"] {
+        position: relative;
+        padding-left: 0.85rem;
+        color: var(--text-1);
+        letter-spacing: -0.01em;
+        font-weight: 700;
+      }
+      #calculator-app h3[data-i18n-key^="card"]::before {
+        content: "";
+        position: absolute; left: 0; top: 50%;
+        transform: translateY(-50%);
+        width: 3px; height: 1.05em; border-radius: 2px;
+        background: linear-gradient(180deg, var(--accent), var(--accent-2));
+        box-shadow: 0 0 10px -2px var(--accent);
+      }
+
+      /* Numeric inputs: mono, tabular, token surfaces */
+      #calculator-app input[type="number"],
+      #calculator-app input[type="text"] {
+        background-color: var(--surface-2);
+        border-color: var(--border);
+        font-family: var(--font-mono);
+        font-variant-numeric: tabular-nums;
+      }
+      #calculator-app .number-btn {
+        background-color: var(--surface-2);
+        border-color: var(--border);
+      }
+
+      /* Quick-set chips (range + exit) become outlined pills that fill on hover */
+      #calculator-app #range-buttons-container button,
+      #calculator-app #exit-price-buttons-container button {
+        background-color: transparent;
+        border: 1px solid var(--border-strong);
+        color: var(--accent);
+        border-radius: 999px;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        padding: 0.3rem 0.7rem;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      }
+      #calculator-app #range-buttons-container button:hover:not(:disabled),
+      #calculator-app #exit-price-buttons-container button:hover:not(:disabled) {
+        background-color: var(--accent);
+        color: #04121a;
+        border-color: var(--accent);
+      }
+
+      /* Result rows: tabular numerals so figures align cleanly */
+      #calculator-app .interactive-card .font-mono { font-variant-numeric: tabular-nums; }
+
+      /* Current-price readout pill */
+      #calculator-app #current-price-container {
+        background-color: var(--surface-2) !important;
+        border: 1px solid var(--border);
+        font-family: var(--font-mono);
+      }
+
+      /* Waiting / empty state: gently breathe the large state glyph so the
+         panel reads as "ready and listening" rather than broken. The h-12
+         filter keeps the small analysis-tip icons (h-5) untouched. */
+      @media (prefers-reduced-motion: no-preference) {
+        #calculator-app #results-column > .interactive-card svg[class*="h-12"] {
+          animation: calc-empty-float 3.4s ease-in-out infinite;
+        }
+      }
+      @keyframes calc-empty-float {
+        0%, 100% { transform: translateY(0); opacity: 0.7; }
+        50%      { transform: translateY(-5px); opacity: 1; }
+      }
+
       /* ---- Scroll-reveal utility (driven by IntersectionObserver in JS) ---- */
       [data-reveal] {
         opacity: 0;
