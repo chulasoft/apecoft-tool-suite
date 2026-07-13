@@ -51,10 +51,10 @@ export async function playLandingIntro() {
 // --- Tool-view intro: stagger the .interactive-card panels of a tool view on
 // enter. Motivated by hierarchy: the input steps arrive in reading order so the
 // eye follows the flow. Runs once per view entry; safe no-op without anime. ---
-export async function playToolIntro(viewEl) {
+export async function playToolIntro(viewEl, selector = '.interactive-card') {
     await animeReady;
     if (!canAnimate() || !viewEl) return;
-    const cards = viewEl.querySelectorAll('.interactive-card');
+    const cards = viewEl.querySelectorAll(selector);
     if (!cards.length) return;
     anime.animate(cards, {
         opacity: [0, 1],

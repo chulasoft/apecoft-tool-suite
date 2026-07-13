@@ -1065,6 +1065,97 @@
         50%      { transform: translateY(-5px); opacity: 1; }
       }
 
+      /* ============================================================= */
+      /* ===== DeFi Yield Dashboard — inner-view redesign =========== */
+      /* Scoped to #yield-dashboard; indigo is this tool's identity    */
+      /* accent (matches its launcher card). JS markup untouched.      */
+      /* ============================================================= */
+      #yield-dashboard { --tool-accent: #818cf8; }
+
+      /* Cards + table container move to the token surfaces */
+      #yield-dashboard #yield-summary-card,
+      #yield-dashboard #yield-optimizer-card,
+      #yield-dashboard #yield-risk-card,
+      #yield-dashboard #yield-dashboard-main-content > .shadow-md {
+        background:
+          linear-gradient(180deg, rgba(129,140,248,0.045), transparent 42%),
+          var(--surface-solid);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: none;
+      }
+
+      /* Card titles pick up an indigo accent bar */
+      #yield-dashboard [id$="-card"] h3 {
+        position: relative;
+        padding-left: 0.85rem;
+        color: var(--text-1);
+        letter-spacing: -0.01em;
+      }
+      #yield-dashboard [id$="-card"] h3::before {
+        content: "";
+        position: absolute; left: 0; top: 50%;
+        transform: translateY(-50%);
+        width: 3px; height: 1.05em; border-radius: 2px;
+        background: linear-gradient(180deg, var(--tool-accent), #a855f7);
+        box-shadow: 0 0 10px -2px var(--tool-accent);
+      }
+
+      /* Table: quieter header, hairline rows, tabular figures */
+      #yield-dashboard #yield-dashboard-table { font-variant-numeric: tabular-nums; }
+      #yield-dashboard #yield-dashboard-table thead {
+        background-color: rgba(21,28,46,0.7);
+        letter-spacing: 0.06em;
+      }
+      #yield-dashboard #yield-dashboard-table tbody tr {
+        border-color: var(--border);
+      }
+      #yield-dashboard #yield-dashboard-table tbody tr:hover {
+        background-color: var(--surface-2);
+      }
+
+      /* Inner sub-panels (portfolio totals, optimizer result, risk readouts) */
+      #yield-dashboard .bg-slate-900\/50 {
+        background-color: var(--bg) !important;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
+
+      /* Inputs: token surface, mono numerals, indigo focus ring */
+      #yield-dashboard input[type="number"],
+      #yield-dashboard input[type="text"],
+      #yield-position-modal input {
+        background-color: var(--surface-2);
+        border-color: var(--border);
+      }
+      #yield-dashboard input[type="number"] {
+        font-family: var(--font-mono);
+        font-variant-numeric: tabular-nums;
+      }
+      #yield-dashboard input:focus-visible,
+      #yield-position-modal input:focus-visible {
+        box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px rgba(129,140,248,0.55);
+      }
+
+      /* Secondary toolbar buttons (import / export / pdf) to token surface */
+      #yield-dashboard #import-btn,
+      #yield-dashboard #export-btn,
+      #yield-dashboard #export-pdf-btn {
+        background-color: var(--surface-2);
+        border: 1px solid var(--border);
+      }
+      #yield-dashboard #import-btn:hover,
+      #yield-dashboard #export-btn:hover:not(:disabled),
+      #yield-dashboard #export-pdf-btn:hover:not(:disabled) {
+        background-color: var(--border);
+      }
+      /* Primary add-position button keeps indigo, gains a soft glow */
+      #yield-dashboard #add-position-btn {
+        box-shadow: 0 8px 24px -12px var(--tool-accent);
+      }
+      /* Rounded corners align to the token radius scale */
+      #yield-dashboard #yield-dashboard-main-content > .shadow-md { border-radius: var(--radius-lg); }
+
       /* ---- Scroll-reveal utility (driven by IntersectionObserver in JS) ---- */
       [data-reveal] {
         opacity: 0;

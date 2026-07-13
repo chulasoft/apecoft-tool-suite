@@ -280,6 +280,8 @@ function setView(viewName) {
             // Stagger the input/result panels of card-based tool views on enter.
             if (viewName === 'calculator') {
                 playToolIntro(elements.calculatorApp);
+            } else if (viewName === 'yield-dashboard') {
+                playToolIntro(elements.yieldDashboard, '#yield-analysis-container > div, #yield-dashboard-main-content > .shadow-md');
             }
         }
     });
