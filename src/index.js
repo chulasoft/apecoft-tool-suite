@@ -286,6 +286,8 @@ function setView(viewName) {
                 playToolIntro(elements.comparatorApp, '#comparator-main > div');
             } else if (viewName === 'pt-calculator') {
                 playToolIntro(elements.ptCalculatorApp, '#pt-calculator-main > div');
+            } else if (viewName === 'luck-game') {
+                playToolIntro(elements.luckGameApp, '#luck-game-main .room-card');
             }
         }
     });

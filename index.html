@@ -1219,6 +1219,31 @@
          keep the animated "best strategy" highlight untouched. */
       #pt-calculator-app .clean-table td { font-variant-numeric: tabular-nums; }
 
+      /* ============================================================= */
+      /* ===== Test Your Luck — shared game chrome polish =========== */
+      /* One scoped block lifts the panels shared by all four games,   */
+      /* keeping each room's own accent color. JS markup untouched.    */
+      /* ============================================================= */
+      #luck-game-app { font-variant-numeric: tabular-nums; }
+      #luck-game-app .bg-slate-800\/60 {
+        background-color: var(--surface-solid) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: var(--radius-lg) !important;
+      }
+      #luck-game-app .bg-slate-900\/50 {
+        background-color: var(--bg) !important;
+        border: 1px solid var(--border);
+      }
+      /* Capital / money figures read as aligned monospace ledger values */
+      #luck-game-app input {
+        background-color: var(--surface-2) !important;
+        border-color: var(--border) !important;
+        font-family: var(--font-mono);
+      }
+      #luck-game-app input:focus-visible {
+        box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px rgba(244,63,94,0.5) !important;
+      }
+
       /* ---- Scroll-reveal utility (driven by IntersectionObserver in JS) ---- */
       [data-reveal] {
         opacity: 0;
