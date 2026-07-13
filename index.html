@@ -1156,6 +1156,69 @@
       /* Rounded corners align to the token radius scale */
       #yield-dashboard #yield-dashboard-main-content > .shadow-md { border-radius: var(--radius-lg); }
 
+      /* ============================================================= */
+      /* ===== Market Cap Comparator — inner-view redesign (amber) === */
+      /* ============================================================= */
+      #comparator-app { --tool-accent: #fbbf24; }
+      #comparator-app .bg-slate-800\/60 {
+        background:
+          linear-gradient(180deg, rgba(251,191,36,0.045), transparent 42%),
+          var(--surface-solid) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: var(--radius-lg) !important;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      #comparator-app .bg-slate-800\/60:hover { border-color: var(--border-strong) !important; }
+      #comparator-app .bg-slate-900\/50 {
+        background-color: var(--bg) !important;
+        border: 1px solid var(--border);
+      }
+      #comparator-app input {
+        background-color: var(--surface-2) !important;
+        border-color: var(--border) !important;
+      }
+      #comparator-app input[type="number"] {
+        font-family: var(--font-mono);
+        font-variant-numeric: tabular-nums;
+      }
+      #comparator-app input:focus-visible {
+        box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px rgba(251,191,36,0.55) !important;
+      }
+      /* Projection readouts align as tabular figures */
+      #comparator-app [id^="projection-result-"] { font-variant-numeric: tabular-nums; }
+
+      /* ============================================================= */
+      /* ===== PT/YT Strategy Simulator — inner-view redesign (green) = */
+      /* ============================================================= */
+      #pt-calculator-app { --tool-accent: #4ade80; }
+      #pt-calculator-app .bg-slate-800\/60 {
+        background:
+          linear-gradient(180deg, rgba(74,222,128,0.04), transparent 42%),
+          var(--surface-solid) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: var(--radius-lg) !important;
+      }
+      #pt-calculator-app .bg-slate-900\/50 {
+        background-color: var(--bg) !important;
+        border-color: var(--border) !important;
+      }
+      /* Enabled inputs on the token surface; disabled stay clearly dimmed */
+      #pt-calculator-app input:not([disabled]) {
+        background-color: var(--surface-2) !important;
+        border-color: var(--border) !important;
+      }
+      #pt-calculator-app input[disabled] { opacity: 0.5; }
+      #pt-calculator-app input[type="number"] {
+        font-family: var(--font-mono);
+        font-variant-numeric: tabular-nums;
+      }
+      #pt-calculator-app input:focus-visible {
+        box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px rgba(74,222,128,0.5) !important;
+      }
+      /* Result strategy table already uses .clean-table (globally themed);
+         keep the animated "best strategy" highlight untouched. */
+      #pt-calculator-app .clean-table td { font-variant-numeric: tabular-nums; }
+
       /* ---- Scroll-reveal utility (driven by IntersectionObserver in JS) ---- */
       [data-reveal] {
         opacity: 0;

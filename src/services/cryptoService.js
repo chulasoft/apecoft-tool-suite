@@ -1,23 +1,43 @@
 
-// Routed through our own /api/coingecko serverless function (see
-// api/coingecko/[...path].js) rather than a public CORS proxy, so pricing
-// data doesn't depend on a third party's uptime.
-const API_BASE_URL = '/api/coingecko';
+const COINGECKO_BASE = 'https://api.coingecko.com/api/v3';
 
-// Helper function to handle fetch requests to CoinGecko
+// Endpoints are tried in order until one returns valid JSON:
+//   1. Our own /api/coingecko serverless function (Vercel) — no third-party
+//      dependency, server-side, no CORS. This is the happy path in production.
+//   2. Public CORS proxies — a safety net so the tool still works when the
+//      serverless function isn't available (opened as a static site, local
+//      file, preview host) or is momentarily failing / rate-limited.
+const buildEndpointUrls = (endpoint) => {
+    const upstream = `${COINGECKO_BASE}${endpoint}`;
+    return [
+        `/api/coingecko${endpoint}`,
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(upstream)}`,
+        `https://corsproxy.io/?url=${encodeURIComponent(upstream)}`,
+    ];
+};
+
+// Try each candidate URL in turn; resolve with the first that yields JSON.
 const fetchFromApi = async (endpoint) => {
-    const targetUrl = `${API_BASE_URL}${endpoint}`;
-    try {
-        const response = await fetch(targetUrl);
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`API call failed for ${targetUrl}: ${response.status}. Response: ${errorText}`);
+    const urls = buildEndpointUrls(endpoint);
+    let lastError;
+
+    for (const url of urls) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                lastError = new Error(`API call failed for ${url}: ${response.status}`);
+                continue;
+            }
+            // A proxy that silently returns HTML (error page) would break
+            // JSON.parse; treat that as a failure and fall through.
+            return await response.json();
+        } catch (error) {
+            lastError = error;
         }
-        return await response.json();
-    } catch (error) {
-        console.error(`Failed to fetch from ${targetUrl}:`, error);
-        throw error;
     }
+
+    console.error(`All CoinGecko endpoints failed for ${endpoint}:`, lastError);
+    throw lastError || new Error(`Failed to fetch ${endpoint}`);
 };
 
 export const fetchTopTokens = async () => {
