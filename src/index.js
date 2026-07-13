@@ -282,6 +282,12 @@ function setView(viewName) {
                 playToolIntro(elements.calculatorApp);
             } else if (viewName === 'yield-dashboard') {
                 playToolIntro(elements.yieldDashboard, '#yield-analysis-container > div, #yield-dashboard-main-content > .shadow-md');
+            } else if (viewName === 'comparator') {
+                playToolIntro(elements.comparatorApp, '#comparator-main > div');
+            } else if (viewName === 'pt-calculator') {
+                playToolIntro(elements.ptCalculatorApp, '#pt-calculator-main > div');
+            } else if (viewName === 'luck-game') {
+                playToolIntro(elements.luckGameApp, '#luck-game-main .room-card');
             }
         }
     });
