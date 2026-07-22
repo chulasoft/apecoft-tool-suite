@@ -1,22 +1,21 @@
 ---
 name: apecoft-tool-suite
-description: Orientation and working rules for the Apecoft Tool Suite repo — a static, no-build, client-side DeFi tool suite. Read this first before changing anything, then follow the reading order and hard rules below.
+description: The one-page map and working rules for the Apecoft Tool Suite repo — a static, no-build, client-side DeFi tool suite. Read PROMPT.md first for the overview, then this for the map, hard rules, and reading order into the rest of docs/.
 ---
 
-# Apecoft Tool Suite — Start Here
+# Apecoft Tool Suite — Map & Rules
 
-You are picking up work on **Apecoft Tool Suite**, a static browser app: a set of DeFi calculators and probability games. No build step, no backend — one HTML shell plus vanilla ES modules, live data from public APIs, user input in `localStorage`.
+You should have read **`PROMPT.md`** already — that is the overview. This file is the quick-reference map, the hard rules, and the path into the rest of the docs.
 
-Read this file first. It is the map. The detail lives in the other docs.
+**Apecoft Tool Suite** is a static browser app: a set of DeFi calculators and probability games. No build step, no backend — one HTML shell plus vanilla ES modules, live data from public APIs, user input in `localStorage`.
 
-## Reading order (fastest path to context)
+## Reading order (after PROMPT.md)
 
-1. **`PROMPT.md`** — the continuation brief. Read in full; it is the substance.
-2. **`ARCHITECTURE.md`** — how the app is wired (shell + views, module contract, data fetching, deployment).
-3. **`STYLE_GUIDE.md`** — coding conventions. Follow these when writing code.
-4. **`FEATURE.md`** — what is shipped, dev-locked, or a placeholder.
-5. **`DATABASE.md`** — `localStorage` keys and API data shapes (there is no real database).
-6. **`TODO.md`** — prioritized outstanding work; pick your task here.
+1. **`ARCHITECTURE.md`** — how the app is wired (shell + views, module contract, data fetching, deployment).
+2. **`STYLE_GUIDE.md`** — coding conventions. Follow these when writing code.
+3. **`FEATURE.md`** — what is shipped, dev-locked, or a placeholder.
+4. **`DATABASE.md`** — `localStorage` keys and API data shapes (there is no real database).
+5. **`TODO.md`** — prioritized outstanding work; pick your task here.
 
 ## The map in 30 seconds
 

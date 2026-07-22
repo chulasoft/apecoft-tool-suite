@@ -1,6 +1,6 @@
 # Continuation Brief
 
-The detailed primer for whoever picks up this project next. If you haven't yet, skim `SKILL.md` first (the one-page map and hard rules); this file is the fuller brief it points to. After this, read `ARCHITECTURE.md` and `TODO.md`.
+**Read this first.** It is the overview for whoever picks up this project next. When you're done here, read `SKILL.md` (the one-page map and hard rules), then the rest of `docs/` in the order it lists (`ARCHITECTURE.md` → `STYLE_GUIDE.md` → `FEATURE.md` → `DATABASE.md` → `TODO.md`).
 
 ## What this is
 
