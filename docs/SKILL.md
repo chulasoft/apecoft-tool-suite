@@ -1,15 +1,15 @@
 ---
 name: apecoft-tool-suite
-description: The one-page map and working rules for the Apecoft Tool Suite repo — a static, no-build, client-side DeFi tool suite. Read PROMPT.md first for the overview, then this for the map, hard rules, and reading order into the rest of docs/.
+description: The one-page map and working rules for the Apecoft Tool Suite repo — a static, no-build, client-side DeFi tool suite. Read the root CONTEXT.md first for the overview, then this for the map, hard rules, and reading order into the rest of docs/.
 ---
 
 # Apecoft Tool Suite — Map & Rules
 
-You should have read **`PROMPT.md`** already — that is the overview. This file is the quick-reference map, the hard rules, and the path into the rest of the docs.
+You should have read the root **[`CONTEXT.md`](../CONTEXT.md)** already — that is the core overview and the required first read. This file is the quick-reference map, the hard rules, and the path into the rest of the docs.
 
 **Apecoft Tool Suite** is a static browser app: a set of DeFi calculators and probability games. No build step, no backend — one HTML shell plus vanilla ES modules, live data from public APIs, user input in `localStorage`.
 
-## Reading order (after PROMPT.md)
+## Reading order (after CONTEXT.md)
 
 1. **`ARCHITECTURE.md`** — how the app is wired (shell + views, module contract, data fetching, deployment).
 2. **`STYLE_GUIDE.md`** — coding conventions. Follow these when writing code.
