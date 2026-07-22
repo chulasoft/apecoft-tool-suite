@@ -4,75 +4,66 @@
 [![Powered by CoinGecko](https://img.shields.io/badge/Powered%20by-CoinGecko-brightgreen)](https://www.coingecko.com/)
 [![Data from DefiLlama](https://img.shields.io/badge/Data%20from-DefiLlama-purple)](https://defillama.com/)
 
-A collection of powerful, open-source utilities designed for decentralized finance (DeFi) enthusiasts. This suite provides a range of calculators, simulators, and analytical tools to help you make more informed decisions in the dynamic world of DeFi.
-
-
+A suite of browser-based calculators and simulators for decentralized finance. Each tool runs entirely client-side, pulls live market data on demand, and keeps your inputs in local storage. No build step, no backend state.
 
 ---
 
-## ✨ Features
+## Tools
 
-The suite is constantly evolving. Here are the tools currently available and what's coming soon:
+| Tool | What it does |
+| --- | --- |
+| **Liquidity Pool Calculator** | Projects returns, impermanent loss, and out-of-range risk for concentrated liquidity positions. |
+| **DeFi Yield Calculator** | Tracks a portfolio of yield positions and models the fee, investment, or APR needed to hit an income target. |
+| **Market Cap Comparator** | Compares two assets and projects one's price at the other's market cap (spot or all-time-high). |
+| **PT/YT Strategy Simulator** | Models Principal- and Yield-Token outcomes against your own APY and price forecasts. |
+| **Test Your Luck** | A set of probability games — Dice Duel, Penney Race, Designate Choice, and Fish Prawn Crab. |
 
-### 🛠️ Available Tools
-
-*   **Liquidity Pool Calculator**: Estimate returns, potential risks, and impermanent loss for concentrated liquidity positions (e.g., Uniswap v3).
-*   **DeFi Yield Calculator**: A comprehensive dashboard to track and manage all your passive income streams in one place.
-*   **Market Cap Comparator**: Compare any two crypto assets and visualize their price potential if one were to reach the market cap of the other.
-*   **PT/YT Strategy Simulator**: Model and project outcomes for Principal Token (PT) and Yield Token (YT) strategies based on your own market forecasts.
-*   **Test Your Luck**: A collection of games of chance and strategy to test your wits and luck against the house.
-    *   **Dice Duel**: A strategic dice game where picking the right die is key.
-    *   **Penney Race**: A counter-intuitive coin-flipping game of sequences.
-    *   **Designate Choice**: A high-pressure decision-making game of instant vs. delayed gratification.
-    *   **Fish Prawn Crab**: A classic Southeast Asian dice game of chance.
-
-### 🚀 In Development (Dev-Locked)
-
-These tools are currently under development and can be accessed via a long-press on their card:
-
-*   **DeFi Seeker**: Discover and analyze top-performing yield pools across various chains.
-*   **Moon Sheet**: Visualize the future value of your assets at different market capitalization targets.
-*   **RPS - King's Edition**: A strategic twist on Rock-Paper-Scissors where you climb a ladder to dethrone the king.
-*   **Airdrop Hunter's Companion**: Calculate the opportunity cost and potential profitability of your airdrop farming activities.
-*   **Make it or Rekt it**: A high-stakes trading simulator to test your nerve.
-*   **Repay or Invest**: Analyze the classic financial dilemma: pay down debt or invest for growth?
+More tools are in progress; see [`docs/FEATURE.md`](docs/FEATURE.md) for the full status list.
 
 ---
 
-## 💻 Tech Stack
+## Tech stack
 
-*   **Frontend**: HTML5, Tailwind CSS, Vanilla JavaScript (ES6 Modules)
-*   **Data APIs**:
-    *   [CoinGecko API](https://www.coingecko.com/en/api) for cryptocurrency price and market data.
-    *   [DefiLlama API](https://defillama.com/docs/api) for yield and pool data.
-*   **Libraries**:
-    *   `anime.js` for UI animation.
-    *   `jsPDF` & `jspdf-autotable` for PDF exporting.
-    *   `qrcode` for generating QR codes.
+- **Frontend:** HTML5, Tailwind CSS, vanilla JavaScript (ES modules) — no bundler
+- **Animation:** anime.js (vendored locally)
+- **Market data:** [CoinGecko](https://www.coingecko.com/en/api) and [DefiLlama](https://defillama.com/docs/api)
+- **Export:** jsPDF and jspdf-autotable (PDF), qrcode
 
 ---
 
-## ❤️ Support & Acknowledgements
+## Running it
 
-If you find this tool suite useful, please consider supporting its development. Every little bit helps and is greatly appreciated!
+The app is static. To run locally, serve the repository root with any static file server and open `index.html`:
 
-*   **SUI Wallet**: `0x6c1d3e6dce6a63d6423c8417e6ab90b40500a23f71f11f9184fb5cacf59dd677`
+```bash
+python3 -m http.server 8000
+# then open http://localhost:8000
+```
 
-A special thank you to the teams behind these amazing free resources:
-*   [CoinGecko](https://www.coingecko.com/) for their comprehensive and reliable crypto data API.
-*   [DefiLlama](https://defillama.com/) for their incredible work in aggregating and providing DeFi data.
+Deploying to Vercel serves the same files and enables the CoinGecko request proxy under `api/`. See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for how data fetching and deployment fit together.
 
 ---
 
-## 📜 License
+## Documentation
 
-This project is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+Working docs for anyone continuing the project live in [`docs/`](docs/):
 
-This means you are free to:
-- **Share**: Copy and redistribute the material in any medium or format.
-- **Adapt**: Remix, transform, and build upon the material.
+- [`ARCHITECTURE.md`](docs/ARCHITECTURE.md) — how the app is put together
+- [`STYLE_GUIDE.md`](docs/STYLE_GUIDE.md) — coding conventions
+- [`FEATURE.md`](docs/FEATURE.md) — feature status: shipped and planned
+- [`DATABASE.md`](docs/DATABASE.md) — local-storage and API data shapes
+- [`TODO.md`](docs/TODO.md) — outstanding work
+- [`PROMPT.md`](docs/PROMPT.md) — quick context brief for continuing the work
 
-Under the following terms:
-- **Attribution**: You must give appropriate credit, provide a link to the license, and indicate if changes were made.
-- **NonCommercial**: You may not use the material for commercial purposes.
-- **ShareAlike**: If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+---
+
+## License
+
+Licensed under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+- **Share** — copy and redistribute in any medium or format
+- **Adapt** — remix, transform, and build upon the material
+
+Under these terms: **Attribution**, **NonCommercial**, and **ShareAlike**.
+
+Thanks to [CoinGecko](https://www.coingecko.com/) and [DefiLlama](https://defillama.com/) for their free data APIs.
