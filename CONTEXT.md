@@ -1,6 +1,8 @@
-# Continuation Brief
+# CONTEXT — Read This First
 
-**Read this first.** It is the overview for whoever picks up this project next. When you're done here, read `SKILL.md` (the one-page map and hard rules), then the rest of `docs/` in the order it lists (`ARCHITECTURE.md` → `STYLE_GUIDE.md` → `FEATURE.md` → `DATABASE.md` → `TODO.md`).
+> **This is the core context file for the project. Any agent or contributor MUST read this file in full before reading any other file, opening any tool, or writing any code.** It is the foundation; everything else (the docs, the source, the tools) only makes sense after this. Start here, every time.
+
+Once you have read this file, continue to [`docs/SKILL.md`](docs/SKILL.md) (the one-page map and hard rules), then the rest of [`docs/`](docs/) in order: [`ARCHITECTURE.md`](docs/ARCHITECTURE.md) → [`STYLE_GUIDE.md`](docs/STYLE_GUIDE.md) → [`FEATURE.md`](docs/FEATURE.md) → [`DATABASE.md`](docs/DATABASE.md) → [`TODO.md`](docs/TODO.md).
 
 ## What this is
 
@@ -13,7 +15,7 @@ Apecoft Tool Suite is a static, client-side collection of DeFi calculators and p
 - Shared helpers: `src/animations.js` (motion), `src/services/cryptoService.js` (pricing), `src/components/` (coin picker, icons, graph), `src/i18n/` (strings).
 - All CSS is in the `<style>` block of `index.html`, built on a design-token layer. Tools are themed with `#<view-id>`-scoped rules so the JavaScript never changes.
 
-Full detail is in `ARCHITECTURE.md`; conventions are in `STYLE_GUIDE.md`.
+Full detail is in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md); conventions are in [`docs/STYLE_GUIDE.md`](docs/STYLE_GUIDE.md).
 
 ## Ground rules
 
@@ -35,4 +37,4 @@ For pricing-dependent tools, the request path is `cryptoService.js` → `/api/co
 
 ## Where to start
 
-`TODO.md` has the prioritized list. The highest-value next steps are deploying to Vercel with a CoinGecko demo key, then modernizing the two remaining dev-locked tools (DeFi Seeker, Moon Sheet) to match the shipped four.
+[`docs/TODO.md`](docs/TODO.md) has the prioritized list. The highest-value next steps are deploying to Vercel with a CoinGecko demo key, then modernizing the two remaining dev-locked tools (DeFi Seeker, Moon Sheet) to match the shipped four.

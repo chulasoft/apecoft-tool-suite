@@ -46,9 +46,9 @@ Deploying to Vercel serves the same files and enables the CoinGecko request prox
 
 ## Documentation
 
-Working docs for anyone continuing the project live in [`docs/`](docs/). **Start with [`PROMPT.md`](docs/PROMPT.md)** for the overview, then [`SKILL.md`](docs/SKILL.md) for the map and rules, then the rest in reading order:
+**Start with [`CONTEXT.md`](CONTEXT.md)** at the repo root — the core context every contributor (or agent) must read first. It links the rest in reading order. The remaining working docs live in [`docs/`](docs/):
 
-- [`PROMPT.md`](docs/PROMPT.md) — start here: the continuation brief / overview
+- [`CONTEXT.md`](CONTEXT.md) — **read first:** the core project context / overview
 - [`SKILL.md`](docs/SKILL.md) — the map, hard rules, and reading order
 - [`ARCHITECTURE.md`](docs/ARCHITECTURE.md) — how the app is put together
 - [`STYLE_GUIDE.md`](docs/STYLE_GUIDE.md) — coding conventions
