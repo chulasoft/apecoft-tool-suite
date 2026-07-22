@@ -36,7 +36,3 @@ For pricing-dependent tools, the request path is `cryptoService.js` → `/api/co
 ## Where to start
 
 `TODO.md` has the prioritized list. The highest-value next steps are deploying to Vercel with a CoinGecko demo key, then modernizing the two remaining dev-locked tools (DeFi Seeker, Moon Sheet) to match the shipped four.
-
-## Design skill
-
-`docs/skill-design-taste-frontend/` contains the frontend design skill used for the UI modernization, moved here to keep the repo root clean. It is no longer in the Claude Code auto-load path (`.claude/skills/`); to use it as a live skill again, reinstall it (for example `npx skills add`) or copy the folder back under `.claude/skills/`. `docs/skills-lock.json` records its source.
