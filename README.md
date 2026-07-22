@@ -46,8 +46,9 @@ Deploying to Vercel serves the same files and enables the CoinGecko request prox
 
 ## Documentation
 
-Working docs for anyone continuing the project live in [`docs/`](docs/):
+Working docs for anyone continuing the project live in [`docs/`](docs/). **Start with [`SKILL.md`](docs/SKILL.md)** — it is the entry point that orients you and links the rest in reading order:
 
+- [`SKILL.md`](docs/SKILL.md) — start here: the map, reading order, and hard rules
 - [`ARCHITECTURE.md`](docs/ARCHITECTURE.md) — how the app is put together
 - [`STYLE_GUIDE.md`](docs/STYLE_GUIDE.md) — coding conventions
 - [`FEATURE.md`](docs/FEATURE.md) — feature status: shipped and planned

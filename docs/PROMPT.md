@@ -1,6 +1,6 @@
 # Continuation Brief
 
-A quick primer for whoever picks up this project next. Read this first, then `ARCHITECTURE.md` and `TODO.md`.
+The detailed primer for whoever picks up this project next. If you haven't yet, skim `SKILL.md` first (the one-page map and hard rules); this file is the fuller brief it points to. After this, read `ARCHITECTURE.md` and `TODO.md`.
 
 ## What this is
 
